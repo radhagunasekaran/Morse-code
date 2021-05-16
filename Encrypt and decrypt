@@ -1,0 +1,78 @@
+MORSE_CODE_RULE = { 'A':'.-', 'B':'-...',
+                    'C':'-.-.', 'D':'-..', 'E':'.',
+                    'F':'..-.', 'G':'--.', 'H':'....',
+                    'I':'..', 'J':'.---', 'K':'-.-',
+                    'L':'.-..', 'M':'--', 'N':'-.',
+                    'O':'---', 'P':'.--.', 'Q':'--.-',
+                    'R':'.-.', 'S':'...', 'T':'-',
+                    'U':'..-', 'V':'...-', 'W':'.--',
+                    'X':'-..-', 'Y':'-.--', 'Z':'--..',
+                    '1':'.----', '2':'..---', '3':'...--',
+                    '4':'....-', '5':'.....', '6':'-....',
+                    '7':'--...', '8':'---..', '9':'----.',
+                    '0':'-----', ', ':'--..--', '.':'.-.-.-',
+                    '?':'..--..', '/':'-..-.', '-':'-....-',
+                    '(':'-.--.', ')':'-.--.-'}
+  
+# Function to encrypt the string for the given text
+
+def encrypt(Text):
+    Morse_code = ''
+    for letter in Text:
+       #Seach for the morse code in dictionary
+
+        if letter != ' ':
+            Morse_code += MORSE_CODE_RULE[letter] + ' '
+
+        else: 
+            Morse_code+= ' '
+  
+    return Morse_code
+
+
+#Find the corresponding letter for the morse code detected
+
+def get_key(val):
+    for key, value in MORSE_CODE_RULE.items():
+         if val == value:
+             return key
+ 
+    return 
+  
+# Function to decrypt the morse code to the original text
+
+def decrypt(Morse_Code):
+  
+    Text = ''
+    Morse_letter=''
+
+    #Find the morse code for each letter
+
+    for letter in Morse_Code:
+
+        if (letter != ' '):
+            i = 0
+            Morse_letter+=letter
+  
+        else:
+            i += 1
+
+            #Search for the text for the corresponding morse code
+            if i == 1 :
+                Text += get_key(Morse_letter)
+                Morse_letter=''  
+
+            #adding space in between 2 word      
+            elif i == 2:
+                Text += ' '
+
+            else:
+                pass
+  
+    return Text
+  
+word=str(input())
+Morse_code=encrypt(word)
+print(Morse_code)
+Text=decrypt(Morse_code)
+print(Text)
